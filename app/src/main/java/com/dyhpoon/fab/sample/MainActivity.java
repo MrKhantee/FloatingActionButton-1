@@ -1,33 +1,22 @@
 package com.dyhpoon.fab.sample;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
+import android.annotation.*;
+import android.app.*;
+import android.content.*;
+import android.os.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
+import android.support.v7.widget.*;
+import android.text.*;
+import android.text.method.*;
+import android.util.*;
+import android.view.*;
+import android.widget.*;
+import com.dyhpoon.fab.*;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.dyhpoon.fab.FloatingActionButton;
-import com.dyhpoon.fab.FloatingActionsMenu;
-import com.dyhpoon.fab.ObservableScrollView;
-import com.dyhpoon.fab.ScrollDirectionListener;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -137,6 +126,38 @@ public class MainActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+	private static final long delay = 2000L;
+    private boolean mRecentlyBackPressed = false;
+    private Handler mExitHandler = new Handler();
+    private Runnable mExitRunnable = new Runnable() {
+
+        @Override
+        public void run()
+		{
+            mRecentlyBackPressed = false;   
+        }
+    };
+
+	@Override
+	public void onBackPressed()
+	{
+		// TODO: Implement this method
+		// 16 JUN 2019 https://stackoverflow.com/questions/8430805/clicking-the-back-button-twice-to-exit-an-activity
+		//You may also add condition if (doubleBackToExitPressedOnce || fragmentManager.getBackStackEntryCount() != 0) // in case of Fragment-based add
+		if (mRecentlyBackPressed)
+		{
+			mExitHandler.removeCallbacks(mExitRunnable);
+			mExitHandler = null;
+			super.onBackPressed();
+		}
+		else
+		{
+			mRecentlyBackPressed = true;
+			Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+			mExitHandler.postDelayed(mExitRunnable, delay);
+		}
+	}
+	
     public static class ListViewFragment extends Fragment
 	{
 
