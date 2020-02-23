@@ -116,22 +116,23 @@ public class MainActivity extends ActionBarActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
 	{
-        if (item.getItemId() == R.id.about)
+		switch (item.getItemId())
 		{
-            TextView content = (TextView) getLayoutInflater().inflate(R.layout.about_view, null);
-            content.setMovementMethod(LinkMovementMethod.getInstance());
-            content.setText(Html.fromHtml(getString(R.string.about_body)));
-            new AlertDialog.Builder(this)
-                .setTitle(R.string.about)
-                .setView(content)
-                .setInverseBackgroundForced(true)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which)
-					{
-                        dialog.dismiss();
-                    }
-                }).create().show();
+			case R.id.about:
+				TextView content = (TextView) getLayoutInflater().inflate(R.layout.about_view, null);
+				content.setMovementMethod(LinkMovementMethod.getInstance());
+				content.setText(Html.fromHtml(getString(R.string.about_body)));
+				new AlertDialog.Builder(this)
+					.setTitle(R.string.about)
+					.setView(content)
+					.setInverseBackgroundForced(true)
+					.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							dialog.dismiss();
+						}
+					}).create().show();
         }
         return super.onOptionsItemSelected(item);
     }
