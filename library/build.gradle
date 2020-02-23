@@ -6,13 +6,13 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.2"
+    buildToolsVersion "21.1.0"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 29
+        versionCode 20200224
+        versionName "24.FEB.2020"
     }
 
     buildTypes {
